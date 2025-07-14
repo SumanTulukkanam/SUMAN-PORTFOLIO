@@ -782,52 +782,28 @@ document.addEventListener('DOMContentLoaded', function() {
     sentMessage.style.display = 'none';
 
     form.addEventListener('submit', function(e) {
-        e.preventDefault();
-        
-        // Show loading state
+        // Show loading state immediately
         loading.style.display = 'block';
         errorMessage.style.display = 'none';
         sentMessage.style.display = 'none';
         submitButton.disabled = true;
         submitButton.textContent = 'Sending...';
 
-        // Create FormData object
-        const formData = new FormData(form);
-
-        // Submit to FormSubmit with no-cors to handle redirects
-        fetch(form.action, {
-            method: 'POST',
-            body: formData,
-            mode: 'no-cors'
-        })
-        .then(() => {
-            // Since we're using no-cors, we can't check response status
-            // Assume success after a reasonable delay
-            setTimeout(() => {
-                loading.style.display = 'none';
-                sentMessage.style.display = 'block';
-                form.reset(); // Clear the form
-                
-                // Reset button after 3 seconds
-                setTimeout(() => {
-                    submitButton.disabled = false;
-                    submitButton.textContent = 'Send Message';
-                    sentMessage.style.display = 'none';
-                }, 3000);
-            }, 1000);
-        })
-        .catch(error => {
-            // Error handling
+        // Set a timeout to show success message after form submission
+        setTimeout(() => {
             loading.style.display = 'none';
-            errorMessage.style.display = 'block';
-            errorMessage.textContent = 'There was an error sending your message. Please try again.';
+            sentMessage.style.display = 'block';
             
-            // Reset button
-            submitButton.disabled = false;
-            submitButton.textContent = 'Send Message';
-            
-            console.error('Error:', error);
-        });
+            // Reset button after 3 seconds
+            setTimeout(() => {
+                submitButton.disabled = false;
+                submitButton.textContent = 'Send Message';
+                sentMessage.style.display = 'none';
+            }, 3000);
+        }, 2000); // Wait 2 seconds before showing success
+
+        // Let the form submit naturally to FormSubmit
+        // Don't prevent default - FormSubmit will handle the redirect
     });
 
     // Optional: Real-time validation

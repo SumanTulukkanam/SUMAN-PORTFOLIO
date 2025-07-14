@@ -562,6 +562,18 @@ section,
   z-index: 1;
 }
 
+@media (max-width: 768px) {
+  .hero img {
+    object-position: right;
+  }
+
+
+  .hero-content {
+    padding: 1.5rem;
+    text-align: left;
+  }
+}
+
 .hero:before {
   content: "";
   background: color-mix(in srgb, var(--background-color), transparent 70%);
@@ -1171,6 +1183,8 @@ section,
  border-radius: 8px;
  background-color: #f8f9fa;
 }
+
+
 
 .portfolio-details .portfolio-details-slider .swiper-pagination {
  margin-top: 20px;

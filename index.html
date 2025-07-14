@@ -789,8 +789,21 @@ document.addEventListener('DOMContentLoaded', function() {
         submitButton.disabled = true;
         submitButton.textContent = 'Sending...';
 
+        // Set a timeout to show success message after form submission
+        setTimeout(() => {
+            loading.style.display = 'none';
+            sentMessage.style.display = 'block';
+            
+            // Reset button after 3 seconds
+            setTimeout(() => {
+                submitButton.disabled = false;
+                submitButton.textContent = 'Send Message';
+                sentMessage.style.display = 'none';
+            }, 3000);
+        }, 2000); // Wait 2 seconds before showing success
+
         // Let the form submit naturally to FormSubmit
-        // FormSubmit will handle the redirect - no JavaScript intervention needed
+        // Don't prevent default - FormSubmit will handle the redirect
     });
 
     // Optional: Real-time validation

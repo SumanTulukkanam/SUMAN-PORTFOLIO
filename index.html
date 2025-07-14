@@ -767,7 +767,8 @@ I’m passionate about technology and love combining creativity with problem-sol
     </div>
   </form>
 </div>
-<script>// Contact Form Functionality
+<script>
+  // Contact Form Functionality
 document.addEventListener('DOMContentLoaded', function() {
     const form = document.querySelector('.php-email-form');
     const loading = document.querySelector('.loading');
@@ -793,14 +794,16 @@ document.addEventListener('DOMContentLoaded', function() {
         // Create FormData object
         const formData = new FormData(form);
 
-        // Submit to FormSubmit
+        // Submit to FormSubmit with no-cors to handle redirects
         fetch(form.action, {
             method: 'POST',
-            body: formData
+            body: formData,
+            mode: 'no-cors'
         })
-        .then(response => {
-            if (response.ok) {
-                // Success
+        .then(() => {
+            // Since we're using no-cors, we can't check response status
+            // Assume success after a reasonable delay
+            setTimeout(() => {
                 loading.style.display = 'none';
                 sentMessage.style.display = 'block';
                 form.reset(); // Clear the form
@@ -811,9 +814,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     submitButton.textContent = 'Send Message';
                     sentMessage.style.display = 'none';
                 }, 3000);
-            } else {
-                throw new Error('Network response was not ok');
-            }
+            }, 1000);
         })
         .catch(error => {
             // Error handling
@@ -882,7 +883,8 @@ style.textContent = `
         cursor: not-allowed;
     }
 `;
-document.head.appendChild(style);</script>
+document.head.appendChild(style);
+</script>
 
     </div>
   </div>

@@ -564,7 +564,7 @@ section,
 
 @media (max-width: 768px) {
   .hero img {
-    object-position: right;
+    object-position: 85% center;
   }
 
 

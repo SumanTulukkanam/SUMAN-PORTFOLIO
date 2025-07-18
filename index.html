@@ -264,7 +264,12 @@ I’m passionate about technology and love combining creativity with problem-sol
     
     <section id="resume" class="resume section">
   <div class="container section-title" data-aos="fade-up">
-    <h2>Resume</h2>
+     <div class="d-flex justify-content-between align-items-center flex-wrap">
+  <h2 class="mb-0">Resume</h2>
+  <a href="assets/resume/SUMAN T RESUME.pdf" download class="btn btn-primary">
+    Download Resume
+  </a>
+</div>
     <p>Passionate and curious B.Tech – AI & DS student, eager to develop AI models, web applications, and explore data science. Strong in real-time project implementation and creative solutions.</p>
   </div>
 
@@ -543,8 +548,7 @@ I’m passionate about technology and love combining creativity with problem-sol
 
 
 
-  <!-- Achievements Section -->
-<section id="achievements" class="testimonials section light-background">
+  
 
   <!-- Section Title -->
 <section id="achievements" class="testimonials section light-background">
@@ -672,8 +676,6 @@ I’m passionate about technology and love combining creativity with problem-sol
 
 
 
-    <!-- Contact Section -->
-    <section id="contact" class="contact section">
 
       <!-- Section Title -->
  <section id="contact" class="contact section">
@@ -726,144 +728,168 @@ I’m passionate about technology and love combining creativity with problem-sol
 
       <!-- Contact Form -->
      <div class="col-lg-7">
-  <form action="https://formsubmit.co/sumantulukkanam2004@gmail.com" method="POST" class="php-email-form" data-aos="fade-up" data-aos-delay="200">
-    
-    <!-- Hidden fields to customize FormSubmit behavior -->
-    <input type="hidden" name="_captcha" value="false">
-    <input type="hidden" name="_template" value="box">
-    <input type="hidden" name="_next" value="https://your-portfolio-link.com/#contact">
+                    <form id="contactForm" class="php-email-form" data-aos="fade-up" data-aos-delay="200">
+                        <div class="row gy-4">
 
-    <div class="row gy-4">
+                            <div class="col-md-6">
+                                <label for="name" class="pb-2">Your Name</label>
+                                <input type="text" name="name" id="name" class="form-control" required>
+                            </div>
 
-      <div class="col-md-6">
-        <label for="name-field" class="pb-2">Your Name</label>
-        <input type="text" name="name" id="name-field" class="form-control" required>
-      </div>
+                            <div class="col-md-6">
+                                <label for="email" class="pb-2">Your Email</label>
+                                <input type="email" class="form-control" name="email" id="email" required>
+                            </div>
 
-      <div class="col-md-6">
-        <label for="email-field" class="pb-2">Your Email</label>
-        <input type="email" class="form-control" name="email" id="email-field" required>
-      </div>
+                            <div class="col-md-12">
+                                <label for="subject" class="pb-2">Subject</label>
+                                <input type="text" class="form-control" name="subject" id="subject" required>
+                            </div>
 
-      <div class="col-md-12">
-        <label for="subject-field" class="pb-2">Subject</label>
-        <input type="text" class="form-control" name="subject" id="subject-field" required>
-      </div>
+                            <div class="col-md-12">
+                                <label for="message" class="pb-2">Message</label>
+                                <textarea class="form-control" name="message" rows="10" id="message" required></textarea>
+                            </div>
 
-      <div class="col-md-12">
-        <label for="message-field" class="pb-2">Message</label>
-        <textarea class="form-control" name="message" rows="10" id="message-field" required></textarea>
-      </div>
+                            <div class="col-md-12 text-center">
+                                <div id="form-message"></div>
+                                <button type="submit">Send Message</button>
+                            </div>
 
-      <div class="col-md-12 text-center">
-        <!-- Optional JS-controlled loaders; not required by FormSubmit -->
-        <div class="loading">Loading</div>
-        <div class="error-message"></div>
-        <div class="sent-message">Your message has been sent. Thank you!</div>
+                        </div>
+                    </form>
+                </div>
 
-        <button type="submit">Send Message</button>
-      </div>
+            </div>
+        </div>
+    </section>
 
-    </div>
-  </form>
-</div>
-<script>// Contact Form Functionality
-document.addEventListener('DOMContentLoaded', function() {
-    const form = document.querySelector('.php-email-form');
-    const loading = document.querySelector('.loading');
-    const errorMessage = document.querySelector('.error-message');
-    const sentMessage = document.querySelector('.sent-message');
-    const submitButton = form.querySelector('button[type="submit"]');
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        // Initialize AOS
+        AOS.init({
+            duration: 1000,
+            once: true
+        });
 
-    // Initially hide all status messages
-    loading.style.display = 'none';
-    errorMessage.style.display = 'none';
-    sentMessage.style.display = 'none';
-
-    form.addEventListener('submit', function(e) {
-        // Show loading state immediately
-        loading.style.display = 'block';
-        errorMessage.style.display = 'none';
-        sentMessage.style.display = 'none';
-        submitButton.disabled = true;
-        submitButton.textContent = 'Sending...';
-
-        // Set a timeout to show success message after form submission
-        setTimeout(() => {
-            loading.style.display = 'none';
-            sentMessage.style.display = 'block';
+        // Contact form handling with Web3Forms - Fixed version
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
             
-            // Reset button after 3 seconds
-            setTimeout(() => {
+            const messageDiv = document.getElementById('form-message');
+            const submitButton = this.querySelector('button[type="submit"]');
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const subject = document.getElementById('subject').value;
+            const message = document.getElementById('message').value;
+
+            // Show loading message
+            messageDiv.style.display = 'block';
+            messageDiv.innerHTML = '<p style="color: #007bff;">Sending message...</p>';
+            submitButton.disabled = true;
+            submitButton.textContent = 'Sending...';
+
+            // Web3Forms with your access key - proper format
+            const formData = new FormData();
+            formData.append('access_key', '726404d9-6886-483f-8f25-89c3e1a510dc');
+            formData.append('name', name);
+            formData.append('email', email);
+            formData.append('subject', subject);
+            formData.append('message', message);
+            formData.append('from_name', name);
+            formData.append('reply_to', email);
+
+            fetch('https://api.web3forms.com/submit', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => {
+                console.log('Response status:', response.status);
+                return response.json();
+            })
+            .then(data => {
+                console.log('Response data:', data);
+                if (data.success) {
+                    messageDiv.innerHTML = '<p style="color: #28a745;">Thank you! Your message has been sent successfully. I will get back to you soon!</p>';
+                    this.reset();
+                } else {
+                    console.error('Web3Forms error:', data.message);
+                    // Try alternative approach
+                    tryAlternativeMethod();
+                }
+            })
+            .catch(error => {
+                console.error('Fetch error:', error);
+                tryAlternativeMethod();
+            })
+            .finally(() => {
                 submitButton.disabled = false;
                 submitButton.textContent = 'Send Message';
-                sentMessage.style.display = 'none';
-            }, 3000);
-        }, 2000); // Wait 2 seconds before showing success
+            });
 
-        // Let the form submit naturally to FormSubmit
-        // Don't prevent default - FormSubmit will handle the redirect
-    });
+            function tryAlternativeMethod() {
+                // Try with URLSearchParams instead of FormData
+                const params = new URLSearchParams();
+                params.append('access_key', '726404d9-6886-483f-8f25-89c3e1a510dc');
+                params.append('name', name);
+                params.append('email', email);
+                params.append('subject', subject);
+                params.append('message', message);
 
-    // Optional: Real-time validation
-    const inputs = form.querySelectorAll('input, textarea');
-    inputs.forEach(input => {
-        input.addEventListener('blur', function() {
-            if (this.hasAttribute('required') && !this.value.trim()) {
-                this.style.borderColor = '#dc3545';
-            } else {
-                this.style.borderColor = '';
+                fetch('https://api.web3forms.com/submit', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    body: params
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        messageDiv.innerHTML = '<p style="color: #28a745;">Thank you! Your message has been sent successfully. I will get back to you soon!</p>';
+                        this.reset();
+                    } else {
+                        console.error('Alternative method failed:', data.message);
+                        showManualEmailOption();
+                    }
+                })
+                .catch(error => {
+                    console.error('Alternative method error:', error);
+                    showManualEmailOption();
+                });
+            }
+
+            function showManualEmailOption() {
+                // Create a pre-filled email as backup
+                const mailtoLink = `mailto:sumantulukkanam2004@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`)}`;
+                
+                messageDiv.innerHTML = `
+                    <p style="color: #ffc107;">Having trouble with the form? No worries!</p>
+                    <p><a href="${mailtoLink}" style="color: #007bff; text-decoration: underline;">Click here to send via your email client</a></p>
+                    <p style="font-size: 0.9em; color: #666;">Or copy this email: sumantulukkanam2004@gmail.com</p>
+                `;
             }
         });
 
-        input.addEventListener('input', function() {
-            if (this.style.borderColor === 'rgb(220, 53, 69)') {
-                this.style.borderColor = '';
-            }
+        // Real-time validation
+        const inputs = document.querySelectorAll('#contactForm input, #contactForm textarea');
+        inputs.forEach(input => {
+            input.addEventListener('blur', function() {
+                if (this.hasAttribute('required') && !this.value.trim()) {
+                    this.style.borderColor = '#dc3545';
+                } else {
+                    this.style.borderColor = '';
+                }
+            });
+
+            input.addEventListener('input', function() {
+                if (this.style.borderColor === 'rgb(220, 53, 69)') {
+                    this.style.borderColor = '';
+                }
+            });
         });
-    });
-});
-
-// Optional: Add CSS for better UX (add this to your CSS file)
-const style = document.createElement('style');
-style.textContent = `
-    .loading, .error-message, .sent-message {
-        padding: 15px;
-        margin: 10px 0;
-        border-radius: 4px;
-        text-align: center;
-        font-weight: 500;
-    }
-    
-    .loading {
-        background-color: #d1ecf1;
-        color: #0c5460;
-        border: 1px solid #bee5eb;
-    }
-    
-    .error-message {
-        background-color: #f8d7da;
-        color: #721c24;
-        border: 1px solid #f5c6cb;
-    }
-    
-    .sent-message {
-        background-color: #d4edda;
-        color: #155724;
-        border: 1px solid #c3e6cb;
-    }
-    
-    button[type="submit"]:disabled {
-        opacity: 0.6;
-        cursor: not-allowed;
-    }
-`;
-document.head.appendChild(style);
-</script>
-
-    </div>
-  </div>
-</section>
+    </script>
 
 
   </main>
